@@ -12,6 +12,11 @@ import { RegisterTypes } from '../../modules/account/register/register.reducer';
 import { ForgotPasswordTypes } from '../../modules/account/password-reset/forgot-password.reducer';
 import { ChangePasswordTypes } from '../../modules/account/password/change-password.reducer';
 import { UserTypes } from '../../shared/reducers/user.reducer';
+import { FrequencyTypes } from '../../modules/entities/frequency/frequency.reducer';
+import { MedicationTypes } from '../../modules/entities/medication/medication.reducer';
+import { NotificationTypes } from '../../modules/entities/notification/notification.reducer';
+import { TimeOfDayTypes } from '../../modules/entities/time-of-day/time-of-day.reducer';
+import { ReminderTypes } from '../../modules/entities/reminder/reminder.reducer';
 // jhipster-react-native-saga-redux-import-needle
 
 /* ------------- Sagas ------------- */
@@ -23,6 +28,11 @@ import { forgotPassword } from '../../modules/account/password-reset/forgot-pass
 import { changePassword } from '../../modules/account/password/change-password.sagas';
 import { getAccount, updateAccount } from '../../shared/sagas/account.sagas';
 import UserSagas from '../../shared/sagas/user.sagas';
+import FrequencySagas from '../../modules/entities/frequency/frequency.sagas';
+import MedicationSagas from '../../modules/entities/medication/medication.sagas';
+import NotificationSagas from '../../modules/entities/notification/notification.sagas';
+import TimeOfDaySagas from '../../modules/entities/time-of-day/time-of-day.sagas';
+import ReminderSagas from '../../modules/entities/reminder/reminder.sagas';
 // jhipster-react-native-saga-method-import-needle
 
 /* ------------- API ------------- */
@@ -42,6 +52,31 @@ export default function* root() {
     takeLatest(LoginTypes.LOGIN_LOAD, loginLoad, api),
     takeLatest(LoginTypes.LOGIN_REQUEST, login, api),
     takeLatest(LoginTypes.LOGOUT_REQUEST, logout, api),
+
+    takeLatest(FrequencyTypes.FREQUENCY_REQUEST, FrequencySagas.getFrequency, api),
+    takeLatest(FrequencyTypes.FREQUENCY_ALL_REQUEST, FrequencySagas.getAllFrequencies, api),
+    takeLatest(FrequencyTypes.FREQUENCY_UPDATE_REQUEST, FrequencySagas.updateFrequency, api),
+    takeLatest(FrequencyTypes.FREQUENCY_DELETE_REQUEST, FrequencySagas.deleteFrequency, api),
+
+    takeLatest(MedicationTypes.MEDICATION_REQUEST, MedicationSagas.getMedication, api),
+    takeLatest(MedicationTypes.MEDICATION_ALL_REQUEST, MedicationSagas.getAllMedications, api),
+    takeLatest(MedicationTypes.MEDICATION_UPDATE_REQUEST, MedicationSagas.updateMedication, api),
+    takeLatest(MedicationTypes.MEDICATION_DELETE_REQUEST, MedicationSagas.deleteMedication, api),
+
+    takeLatest(NotificationTypes.NOTIFICATION_REQUEST, NotificationSagas.getNotification, api),
+    takeLatest(NotificationTypes.NOTIFICATION_ALL_REQUEST, NotificationSagas.getAllNotifications, api),
+    takeLatest(NotificationTypes.NOTIFICATION_UPDATE_REQUEST, NotificationSagas.updateNotification, api),
+    takeLatest(NotificationTypes.NOTIFICATION_DELETE_REQUEST, NotificationSagas.deleteNotification, api),
+
+    takeLatest(TimeOfDayTypes.TIME_OF_DAY_REQUEST, TimeOfDaySagas.getTimeOfDay, api),
+    takeLatest(TimeOfDayTypes.TIME_OF_DAY_ALL_REQUEST, TimeOfDaySagas.getAllTimeOfDays, api),
+    takeLatest(TimeOfDayTypes.TIME_OF_DAY_UPDATE_REQUEST, TimeOfDaySagas.updateTimeOfDay, api),
+    takeLatest(TimeOfDayTypes.TIME_OF_DAY_DELETE_REQUEST, TimeOfDaySagas.deleteTimeOfDay, api),
+
+    takeLatest(ReminderTypes.REMINDER_REQUEST, ReminderSagas.getReminder, api),
+    takeLatest(ReminderTypes.REMINDER_ALL_REQUEST, ReminderSagas.getAllReminders, api),
+    takeLatest(ReminderTypes.REMINDER_UPDATE_REQUEST, ReminderSagas.updateReminder, api),
+    takeLatest(ReminderTypes.REMINDER_DELETE_REQUEST, ReminderSagas.deleteReminder, api),
     // jhipster-react-native-saga-redux-connect-needle
 
     takeLatest(RegisterTypes.REGISTER_REQUEST, register, api),

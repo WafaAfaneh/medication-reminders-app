@@ -1,0 +1,42 @@
+{
+  "angularJSSuffix": "",
+  "applications": "*",
+  "changelogDate": "20230411122900",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "medication",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "dosageQuantity",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "type",
+      "fieldType": "MedicationType",
+      "fieldValues": "CAPSULE,TABLET,LIQUID,TOPICAL,CREAM,FOAM,POWDER,SPRAY"
+    },
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Medication",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "notification",
+      "otherEntityRelationshipName": "medication",
+      "ownerSide": true,
+      "relationshipName": "notification",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

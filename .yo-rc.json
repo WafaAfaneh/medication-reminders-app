@@ -3,7 +3,12 @@
     "applicationType": "monolith",
     "authenticationType": "jwt",
     "baseName": "medicationReminderServer",
-    "blueprints": [],
+    "blueprints": [
+      {
+        "name": "generator-jhipster-react-native",
+        "version": "4.3.0"
+      }
+    ],
     "buildTool": "maven",
     "cacheProvider": "ehcache",
     "clientFramework": "angularX",
@@ -25,12 +30,17 @@
     "jhipsterVersion": "7.9.3",
     "jwtSecretKey": "MzIxMjlhYTA5ZTVkNTNhOTUwNTQyNjk1NjI0ZTM5MTdjODhmNjViNjZmYzUxY2ViMzJiZmE5ZjU4NzZlNWYwYjQ0MjZjYjkzNjQwMTNlNTVhNTFmNWMwNjk3MTM0ZjUwZjY2NzU0ZDNmNGY2YzFiYWViOTdjMzNkZmQ5OTNkZjA=",
     "languages": ["en", "ar-ly"],
-    "lastLiquibaseTimestamp": 1679949351000,
+    "lastLiquibaseTimestamp": 1681216143000,
     "messageBroker": false,
     "microfrontend": false,
     "microfrontends": [],
     "nativeLanguage": "en",
-    "otherModules": [],
+    "otherModules": [
+      {
+        "name": "generator-jhipster-react-native",
+        "version": "4.3.0"
+      }
+    ],
     "packageName": "com.almahealth.app",
     "pages": [],
     "prodDatabaseType": "mysql",

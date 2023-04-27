@@ -59,6 +59,36 @@ const create = (baseURL = AppConfig.apiUrl) => {
   const createUser = (user) => api.post('api/users', user);
   const updateUser = (user) => api.put('api/users', user);
   const deleteUser = (userId) => api.delete('api/users/' + userId);
+
+  const getFrequency = (frequencyId) => api.get('api/frequencies/' + frequencyId);
+  const getAllFrequencies = (options) => api.get('api/frequencies', options);
+  const createFrequency = (frequency) => api.post('api/frequencies', frequency);
+  const updateFrequency = (frequency) => api.put(`api/frequencies/${frequency.id}`, frequency);
+  const deleteFrequency = (frequencyId) => api.delete('api/frequencies/' + frequencyId);
+
+  const getMedication = (medicationId) => api.get('api/medications/' + medicationId);
+  const getAllMedications = (options) => api.get('api/medications', options);
+  const createMedication = (medication) => api.post('api/medications', medication);
+  const updateMedication = (medication) => api.put(`api/medications/${medication.id}`, medication);
+  const deleteMedication = (medicationId) => api.delete('api/medications/' + medicationId);
+
+  const getNotification = (notificationId) => api.get('api/notifications/' + notificationId);
+  const getAllNotifications = (options) => api.get('api/notifications', options);
+  const createNotification = (notification) => api.post('api/notifications', notification);
+  const updateNotification = (notification) => api.put(`api/notifications/${notification.id}`, notification);
+  const deleteNotification = (notificationId) => api.delete('api/notifications/' + notificationId);
+
+  const getTimeOfDay = (timeOfDayId) => api.get('api/time-of-days/' + timeOfDayId);
+  const getAllTimeOfDays = (options) => api.get('api/time-of-days', options);
+  const createTimeOfDay = (timeOfDay) => api.post('api/time-of-days', timeOfDay);
+  const updateTimeOfDay = (timeOfDay) => api.put(`api/time-of-days/${timeOfDay.id}`, timeOfDay);
+  const deleteTimeOfDay = (timeOfDayId) => api.delete('api/time-of-days/' + timeOfDayId);
+
+  const getReminder = (reminderId) => api.get('api/reminders/' + reminderId);
+  const getAllReminders = (options) => api.get('api/reminders', options);
+  const createReminder = (reminder) => api.post('api/reminders', reminder);
+  const updateReminder = (reminder) => api.put(`api/reminders/${reminder.id}`, reminder);
+  const deleteReminder = (reminderId) => api.delete('api/reminders/' + reminderId);
   // jhipster-react-native-api-method-needle
 
   // ------
@@ -80,6 +110,36 @@ const create = (baseURL = AppConfig.apiUrl) => {
     getAllUsers,
     getUser,
     deleteUser,
+
+    createFrequency,
+    updateFrequency,
+    getAllFrequencies,
+    getFrequency,
+    deleteFrequency,
+
+    createMedication,
+    updateMedication,
+    getAllMedications,
+    getMedication,
+    deleteMedication,
+
+    createNotification,
+    updateNotification,
+    getAllNotifications,
+    getNotification,
+    deleteNotification,
+
+    createTimeOfDay,
+    updateTimeOfDay,
+    getAllTimeOfDays,
+    getTimeOfDay,
+    deleteTimeOfDay,
+
+    createReminder,
+    updateReminder,
+    getAllReminders,
+    getReminder,
+    deleteReminder,
     // jhipster-react-native-api-export-needle
     setAuthToken,
     removeAuthToken,

@@ -37,12 +37,12 @@ export const drawerScreens = [
     component: LoginScreen,
     auth: false,
   },
-  {
+  /*{
     name: 'Settings',
     route: 'settings',
     component: SettingsScreen,
     auth: true,
-  },
+  },*/
   {
     name: 'Register',
     route: 'register',
@@ -71,21 +71,21 @@ export const drawerScreens = [
     },
     auth: true,
   },
-  {
+  /*{
     name: 'Chat',
     route: 'chat',
     component: ChatScreen,
     auth: true,
-  },
+  },*/
 ];
-if (__DEV__) {
+/*if (__DEV__) {
   drawerScreens.push({
     name: 'Storybook',
     route: 'storybook',
     component: StorybookScreen,
     auth: false,
   });
-}
+}*/
 export const getDrawerRoutes = () => {
   const routes = {};
   drawerScreens.forEach((screen) => {

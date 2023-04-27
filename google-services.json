@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "229412290539",
+    "project_id": "medicatioonreminderclient",
+    "storage_bucket": "medicatioonreminderclient.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:229412290539:android:26aaa86b119be23750e3ae",
+        "android_client_info": {
+          "package_name": "com.wafaneh.medicationReminderClient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "229412290539-37ucmgoko083rko3mqltr8fml6go79ns.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wafaneh.medicationReminderClient",
+            "certificate_hash": "48799302fc9b6e94598183391cd212615d8b5f8d"
+          }
+        },
+        {
+          "client_id": "229412290539-v7b9fh5a34trqlhpqmqclmlj6e1k8id1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wafaneh.medicationReminderClient",
+            "certificate_hash": "281c129ebc65603587772771bfd7d57351a5841f"
+          }
+        },
+        {
+          "client_id": "229412290539-rrl4ffpc00rbhgqjc3077v7mo1fb791g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7r4pP8Gx1URN2eylk3ZA6dGdZ3ZJjUmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "229412290539-rrl4ffpc00rbhgqjc3077v7mo1fb791g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

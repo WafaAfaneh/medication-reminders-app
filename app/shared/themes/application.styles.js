@@ -42,6 +42,7 @@ const ApplicationStyles = {
     },
     button: {
       height: 36,
+      marginBottom: 2,
       backgroundColor: Colors.jhipsterBlue,
       borderColor: Colors.jhipsterBlue,
       borderWidth: 1,
@@ -68,6 +69,14 @@ const ApplicationStyles = {
     },
     label: {
       fontWeight: 'bold',
+    },
+    labelMargin: {
+      fontWeight: 'bold',
+      fontSize: 12,
+      marginLeft: 10,
+    },
+    valueMargin: {
+      marginLeft: 10,
     },
     flex: {
       flex: 1,

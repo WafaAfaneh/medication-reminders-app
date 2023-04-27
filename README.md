@@ -8,14 +8,9 @@
     </a>
 </div>
 
-JHipster React Native is designed to be used with a JHipster backend.
-
 ## Table of Contents
 
 1. [Getting Started](#getting-started)
-2. [Generating Entities](#entities)
-3. [E2E Tests](#e2e-tests)
-4. [Tips](#tips)
 
 ## Getting Started
 
@@ -40,34 +35,3 @@ To run on Web, after the Expo packager starts:
 - Press `w`
 
 You can find out more about the Expo CLI and other Expo Features in the [Expo documentation](https://docs.expo.io/).
-
-## Generate Entities
-
-To generate entities:
-
-```bash
-jhipster entity <name>
-```
-
-Or to import JDL:
-
-```bash
-jhipster jdl <file.jdl>
-```
-
-## E2E Tests
-
-See the example end-to-end test in [`e2e/home-screen.spec.js`](e2e/home-screen.spec.js).
-
-To run the e2e tests:
-
-```bash
-npm run test:e2e
-```
-
-You will need to have [`jq`](https://stedolan.github.io/jq/download/) installed for this command to work.
-
-## Tips
-
-- When running your JHipster backend locally for Android, make sure to run `adb reverse tcp:8080 tcp:8080` so the app can communicate with your backend.
-- When running your JHipster backend on Web, make sure to enable CORS in your backend's `src/main/resources/config/application-*.yml` files.

@@ -1,0 +1,33 @@
+{
+  "angularJSSuffix": "",
+  "applications": "*",
+  "changelogDate": "20230411122903",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "reminder",
+  "fields": [
+    {
+      "fieldName": "date",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValues": "TAKEN,SKIPPED,NOT_INTERACTED"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Reminder",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "notification",
+      "otherEntityRelationshipName": "reminder",
+      "relationshipName": "notification",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

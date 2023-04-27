@@ -9,6 +9,11 @@ import ReduxPersist from '../../config/redux-persist';
 export const reducers = combineReducers({
   appState: require('./app-state.reducer').reducer,
   users: require('./user.reducer').reducer,
+  frequencies: require('../../modules/entities/frequency/frequency.reducer').reducer,
+  medications: require('../../modules/entities/medication/medication.reducer').reducer,
+  notifications: require('../../modules/entities/notification/notification.reducer').reducer,
+  timeOfDays: require('../../modules/entities/time-of-day/time-of-day.reducer').reducer,
+  reminders: require('../../modules/entities/reminder/reminder.reducer').reducer,
   // jhipster-react-native-redux-store-import-needle
   chat: require('../../modules/chat/chat.reducer').reducer,
   account: require('./account.reducer').reducer,
