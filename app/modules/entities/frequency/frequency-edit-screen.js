@@ -27,12 +27,11 @@ function FrequencyEditScreen(props) {
   const [formValue, setFormValue] = React.useState();
   const [error, setError] = React.useState('');
 
-  const isNewEntity = !(route.params && route.params.entityId);
-  const {name, dosageQuantity, type, displayName, notes, startDate} = route.params? route.params: null;
-
+  const isNewEntity = !(route.params && route.params.frequency && route.params.frequency.id);
+  const { medicationId, name, dosageQuantity, type, displayName, notificationId, notes, startDate } = route.params ? route.params : null;
   React.useEffect(() => {
     if (!isNewEntity) {
-      getFrequency(route.params.entityId);
+      getFrequency(route.params.frequency.id);
     } else {
       reset();
     }
@@ -42,7 +41,7 @@ function FrequencyEditScreen(props) {
     if (isNewEntity) {
       setFormValue(entityToFormValue({}));
     } else if (!fetching) {
-      setFormValue(entityToFormValue(frequency));
+      setFormValue(entityToFormValue(route.params.frequency));
     }
   }, [frequency, fetching, isNewEntity]);
 
@@ -62,24 +61,46 @@ function FrequencyEditScreen(props) {
 
   const onSubmit = (data) => {
     const frequency = formValueToEntity(data);
-    navigation.navigate('TimeOfDayEdit', {
-      name: name,
-      dosageQuantity: dosageQuantity,
-      type: type,
-      displayName: displayName,
-      notes: notes,
-      startDate: startDate,
-      frequencyType: frequency.type,
-      saturday: frequency.saturday,
-      sunday: frequency.sunday,
-      monday: frequency.monday,
-      tuesday: frequency.tuesday,
-      wednesday: frequency.wednesday,
-      thursday: frequency.thursday,
-      friday: frequency.friday,
-    });
-    //updateFrequency(formValueToEntity(data));
-  }
+    if (!isNewEntity) {
+      navigation.navigate('TimeOfDayEdit', {
+        medicationId: medicationId,
+        name: name,
+        dosageQuantity: dosageQuantity,
+        type: type,
+        displayName: displayName,
+        notificationId: notificationId,
+        notes: notes,
+        startDate: startDate,
+        frequencyType: frequency.type,
+        frequencyId: frequency.id,
+        saturday: frequency.saturday,
+        sunday: frequency.sunday,
+        monday: frequency.monday,
+        tuesday: frequency.tuesday,
+        wednesday: frequency.wednesday,
+        thursday: frequency.thursday,
+        friday: frequency.friday,
+        timeOfDays: route.params.timeOfDays ?? null,
+      });
+    } else {
+      navigation.navigate('TimeOfDayEdit', {
+        name: name,
+        dosageQuantity: dosageQuantity,
+        type: type,
+        displayName: displayName,
+        notes: notes,
+        startDate: startDate,
+        frequencyType: frequency.type,
+        saturday: frequency.saturday,
+        sunday: frequency.sunday,
+        monday: frequency.monday,
+        tuesday: frequency.tuesday,
+        wednesday: frequency.wednesday,
+        thursday: frequency.thursday,
+        friday: frequency.friday,
+      });
+    }
+  };
 
   if (fetching) {
     return (
@@ -176,7 +197,7 @@ function FrequencyEditScreen(props) {
             />
             <FormField name="friday" ref={fridayRef} label="Friday" placeholder="Enter Friday" testID="fridayInput" inputType="boolean" />
 
-              <FormButton title={'Next'} testID={'nextButton'} />
+            <FormButton title={'Next'} testID={'nextButton'} />
           </Form>
         )}
       </KeyboardAwareScrollView>

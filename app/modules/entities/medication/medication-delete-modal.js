@@ -18,7 +18,7 @@ function MedicationDeleteModal(props) {
       <View testID={testID} style={styles.centeredView}>
         <View style={styles.modalView}>
           <View style={[styles.flex, styles.flexRow]}>
-            <Text style={styles.modalText}>Delete Medication {entity.id}?</Text>
+            <Text style={styles.modalText}>Delete Medication {entity.name}?</Text>
           </View>
           <View style={[styles.flexRow]}>
             <TouchableHighlight

@@ -33,6 +33,7 @@ function TimeOfDayEditScreen(props) {
   const [error, setError] = React.useState('');
 
   const isNewEntity = !(route.params && route.params.entityId);
+  const isNotUpdateEntity = !(route.params && route.params.timeOfDays && route.params.timeOfDays[0] && route.params.timeOfDays[0].id);
 
   const {
     name,
@@ -52,53 +53,24 @@ function TimeOfDayEditScreen(props) {
   } = route.params ? route.params : null;
 
   React.useEffect(() => {
-    if (!isNewEntity) {
-      getTimeOfDay(route.params.entityId);
+    if (!isNewEntity || !isNotUpdateEntity) {
+      getTimeOfDay(route.params.timeOfDays[0].id);
     } else {
       reset();
     }
   }, [isNewEntity, getTimeOfDay, route, reset]);
 
   React.useEffect(() => {
-    if (isNewEntity) {
+    if (isNewEntity && isNotUpdateEntity) {
       setFormValue(entityToFormValue({}));
     } else if (!fetching) {
-      setFormValue(entityToFormValue(timeOfDay));
+      setFormValue(entityToFormValue(route.params.timeOfDays[0]));
     }
   }, [timeOfDay, fetching, isNewEntity]);
 
   // fetch related entities
   React.useEffect(() => {
     getAllNotifications();
-    console.log(
-      'data in frequency ' +
-        name +
-        ' ' +
-        dosageQuantity +
-        ' ' +
-        type +
-        ' ' +
-        displayName +
-        +notes +
-        ' ' +
-        startDate +
-        ' ' +
-        frequencyType +
-        ' ' +
-        saturday +
-        ' ' +
-        sunday +
-        ' ' +
-        monday +
-        ' ' +
-        tuesday +
-        ' ' +
-        wednesday +
-        ' ' +
-        thursday +
-        ' ' +
-        friday,
-    );
   }, [getAllNotifications]);
 
   useDidUpdateEffect(() => {
@@ -114,28 +86,57 @@ function TimeOfDayEditScreen(props) {
 
   const onSubmit = (data) => {
     const timeOfDay = formValueToEntity(data);
-    const medication = formValueToMedication(
-      {
-        name,
-        dosageQuantity,
-        type,
-        displayName,
-        notes,
-        startDate,
-        frequencyType,
-        saturday,
-        sunday,
-        monday,
-        tuesday,
-        wednesday,
-        thursday,
-        friday,
-      },
-      timeOfDay.time,
-    );
-
+    let medication;
+    if (isNotUpdateEntity) {
+      medication = formValueToMedication(
+        {
+          name,
+          dosageQuantity,
+          type,
+          displayName,
+          notes,
+          startDate,
+          frequencyType,
+          saturday,
+          sunday,
+          monday,
+          tuesday,
+          wednesday,
+          thursday,
+          friday,
+        },
+        timeOfDay.time,
+      );
+    } else {
+      const medicationId = route.params?.medicationId ?? null;
+      const notificationId = route.params?.notificationId ?? null;
+      const frequencyId = route.params?.frequencyId ?? null;
+      medication = formValueToUpdateMedication(
+        {
+          medicationId,
+          name,
+          dosageQuantity,
+          type,
+          displayName,
+          notes,
+          startDate,
+          notificationId,
+          frequencyType,
+          frequencyId,
+          saturday,
+          sunday,
+          monday,
+          tuesday,
+          wednesday,
+          thursday,
+          friday,
+        },
+        timeOfDay.id,
+        timeOfDay.time,
+      );
+    }
     updateMedication(medication);
-    //updateTimeOfDay(formValueToEntity(data));
+    navigation.navigate('MedicationDetail', { entityId: medication?.id });
   };
 
   if (fetching) {
@@ -148,7 +149,6 @@ function TimeOfDayEditScreen(props) {
 
   const formRef = createRef();
   const timeRef = createRef();
-  const notificationRef = createRef();
 
   return (
     <View style={styles.container}>
@@ -170,18 +170,7 @@ function TimeOfDayEditScreen(props) {
               inputType="text"
               autoCapitalize="none"
             />
-            {/* <FormField
-              name="notification"
-              inputType="select-one"
-              ref={notificationRef}
-              listItems={notificationList}
-              listItemLabelField="id"
-              label="Notification"
-              placeholder="Select Notification"
-              testID="notificationSelectInput"
-            />*/}
-
-            <FormButton title={'Next'} testID={'nextButton'} />
+            <FormButton title={'Submit'} testID={'nextButton'} />
           </Form>
         )}
       </KeyboardAwareScrollView>
@@ -197,7 +186,6 @@ const entityToFormValue = (value) => {
   return {
     id: value.id ?? null,
     time: value.time ?? null,
-    // notification: value.notification && value.notification.id ? value.notification.id : null,
   };
 };
 const formValueToEntity = (value) => {
@@ -205,7 +193,6 @@ const formValueToEntity = (value) => {
     id: value.id ?? null,
     time: value.time ?? null,
   };
-  // entity.notification = value.notification ? { id: value.notification } : null;
   return entity;
 };
 
@@ -248,6 +235,62 @@ const formValueToMedication = (
       },
       timeOfDays: [
         {
+          time: time,
+        },
+      ],
+    },
+  };
+
+  return entity;
+};
+
+const formValueToUpdateMedication = (
+  {
+    medicationId,
+    name,
+    dosageQuantity,
+    type,
+    displayName,
+    notificationId,
+    notes,
+    startDate,
+    frequencyType,
+    frequencyId,
+    saturday,
+    sunday,
+    monday,
+    tuesday,
+    wednesday,
+    thursday,
+    friday,
+  },
+  id,
+  time,
+) => {
+  const entity = {
+    id: medicationId ?? null,
+    name: name ?? null,
+    dosageQuantity: dosageQuantity ?? null,
+    type: type ?? null,
+    notification: {
+      id: notificationId ?? null,
+      displayName: displayName ?? null,
+      notes: notes ?? null,
+      startDate: startDate ?? null,
+      frequency: {
+        id: frequencyId ?? null,
+        type: frequencyType ?? null,
+        saturday: saturday ?? null,
+        sunday: sunday ?? null,
+        monday: monday ?? null,
+        tuesday: tuesday ?? null,
+        wednesday: wednesday ?? null,
+        thursday: thursday ?? null,
+        friday: friday ?? null,
+      },
+      timeOfDays: [
+        {
+          id: id ?? null,
           time: time,
         },
       ],

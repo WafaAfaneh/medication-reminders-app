@@ -101,13 +101,24 @@ function MedicationEditScreen(props) {
 
   const onSubmit = (data) => {
     const medication = formValueToEntity(data);
-    navigation.navigate('NotificationEdit', {
-      name: medication.name,
-      type: medication.type,
-      dosageQuantity: medication.dosageQuantity
-    });
-    //updateMedication(formValueToEntity(data));
-  }
+    if (!isNewEntity) {
+      //send as an update request
+      navigation.navigate('NotificationEdit', {
+        medicationId: medication.id,
+        name: medication.name,
+        type: medication.type,
+        dosageQuantity: medication.dosageQuantity,
+        notification: medication.notification,
+      });
+    } else {
+      //send as a save request
+      navigation.navigate('NotificationEdit', {
+        name: medication.name,
+        type: medication.type,
+        dosageQuantity: medication.dosageQuantity,
+      });
+    }
+  };
 
   if (fetching) {
     return (
@@ -122,7 +133,6 @@ function MedicationEditScreen(props) {
   const dosageQuantityRef = createRef();
   const typeRef = createRef();
   const activeRef = createRef();
-  const notificationRef = createRef();
 
   return (
     <View style={styles.container}>
@@ -163,17 +173,6 @@ function MedicationEditScreen(props) {
               listItems={MedicationType}
               onSubmitEditing={() => activeRef.current?.focus()}
             />
-            {/*<FormField name="active" ref={activeRef} label="Active" placeholder="Enter Active" testID="activeInput" inputType="boolean" />*/}
-            {/*<FormField*/}
-            {/*  name="notification"*/}
-            {/*  inputType="select-one"*/}
-            {/*  ref={notificationRef}*/}
-            {/*  listItems={notificationList}*/}
-            {/*  listItemLabelField="id"*/}
-            {/*  label="Notification"*/}
-            {/*  placeholder="Select Notification"*/}
-            {/*  testID="notificationSelectInput"*/}
-            {/*/>*/}
             <FormButton title={'Next'} testID={'nextButton'} />
           </Form>
         )}
@@ -193,7 +192,7 @@ const entityToFormValue = (value) => {
     dosageQuantity: value.dosageQuantity ?? null,
     type: value.type ?? null,
     active: value.active ?? null,
-    notification: value.notification && value.notification.id ? value.notification.id : null,
+    notification: value.notification ? value.notification : null,
   };
 };
 const formValueToEntity = (value) => {
@@ -204,8 +203,7 @@ const formValueToEntity = (value) => {
     type: value.type ?? null,
     active: value.active === null ? false : Boolean(value.active),
   };
-  entity.notification = value.notification ? { id: value.notification } : null;
-  //entity.notification = value.notification ? value.notification : null;
+  entity.notification = value.notification ? value.notification : null;
 
   return entity;
 };

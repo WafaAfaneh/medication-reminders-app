@@ -33,15 +33,16 @@ function NotificationEditScreen(props) {
   const [formValue, setFormValue] = React.useState();
   const [error, setError] = React.useState('');
 
-  const isNewEntity = !(route.params && route.params.entityId);
+  const isNewEntity = !(route.params && route.params.notification && route.params.notification.id);
 
+  const medicationId = route.params?.medicationId ?? null;
   const name = route.params?.name ?? null;
   const type = route.params?.type ?? null;
   const dosageQuantity = route.params?.dosageQuantity ?? null;
 
   React.useEffect(() => {
     if (!isNewEntity) {
-      getNotification(route.params.entityId);
+      getNotification(route.params.notification.id);
     } else {
       reset();
     }
@@ -51,7 +52,7 @@ function NotificationEditScreen(props) {
     if (isNewEntity) {
       setFormValue(entityToFormValue({}));
     } else if (!fetching) {
-      setFormValue(entityToFormValue(notification));
+      setFormValue(entityToFormValue(route.params.notification));
     }
   }, [notification, fetching, isNewEntity]);
 
@@ -75,17 +76,33 @@ function NotificationEditScreen(props) {
   }, [updateSuccess, errorUpdating, navigation]);
 
   const onSubmit = (data) => {
-    const notification = formValueToEntity(data);
-    //updateNotification(formValueToEntity(data));
-    navigation.navigate('FrequencyEdit', {
-      name: name,
-      dosageQuantity: dosageQuantity,
-      type: type,
-      displayName: notification.displayName,
-      notes: notification.notes,
-      startDate: notification.startDate
-    });
-  }
+    const notificationEntity = formValueToEntity(data);
+    if (!isNewEntity) {
+      //send as an update request
+      navigation.navigate('FrequencyEdit', {
+        medicationId: medicationId,
+        name: name,
+        dosageQuantity: dosageQuantity,
+        type: type,
+        displayName: notificationEntity.displayName,
+        notes: notificationEntity.notes,
+        startDate: notificationEntity.startDate,
+        notificationId: notificationEntity.id,
+        frequency: route.params.notification?.frequency ?? notificationEntity.frequency ?? null,
+        timeOfDays: route.params.notification?.timeOfDays ?? notificationEntity.timeOfDays ?? null,
+      });
+    } else {
+      //send as a save request
+      navigation.navigate('FrequencyEdit', {
+        name: name,
+        dosageQuantity: dosageQuantity,
+        type: type,
+        displayName: notificationEntity.displayName,
+        notes: notificationEntity.notes,
+        startDate: notificationEntity.startDate,
+      });
+    }
+  };
 
   if (fetching) {
     return (
@@ -99,8 +116,6 @@ function NotificationEditScreen(props) {
   const displayNameRef = createRef();
   const notesRef = createRef();
   const startDateRef = createRef();
-  const frequencyRef = createRef();
-  const userRef = createRef();
 
   return (
     <View style={styles.container}>
@@ -141,27 +156,6 @@ function NotificationEditScreen(props) {
               testID="startDateInput"
               inputType="date"
             />
-            {/*<FormField
-              name="frequency"
-              inputType="select-one"
-              ref={frequencyRef}
-              listItems={frequencyList}
-              listItemLabelField="id"
-              label="Frequency"
-              placeholder="Select Frequency"
-              testID="frequencySelectInput"
-            />
-            <FormField
-              name="user"
-              inputType="select-one"
-              ref={userRef}
-              listItems={userList}
-              listItemLabelField="id"
-              label="User"
-              placeholder="Select User"
-              testID="userSelectInput"
-            />*/}
-
             <FormButton title={'Next'} testID={'nextButton'} />
           </Form>
         )}
@@ -180,8 +174,6 @@ const entityToFormValue = (value) => {
     displayName: value.displayName ?? null,
     notes: value.notes ?? null,
     startDate: value.startDate ?? null,
-    //frequency: value.frequency && value.frequency.id ? value.frequency.id : null,
-    //user: value.user && value.user.id ? value.user.id : null,
   };
 };
 const formValueToEntity = (value) => {
@@ -191,8 +183,6 @@ const formValueToEntity = (value) => {
     notes: value.notes ?? null,
     startDate: value.startDate ?? null,
   };
-  //entity.frequency = value.frequency ? { id: value.frequency } : null;
-  //entity.user = value.user ? { id: value.user } : null;
   return entity;
 };
 

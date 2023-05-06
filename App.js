@@ -89,7 +89,7 @@ export default function App() {
       const time = date.toLocaleString('en-IN').split(' ')[3];
       //Add 10 seconds to the current date to test it.
       // date.setSeconds(date.getSeconds() + 1);
-
+      console.log('the date ' + date);
       await schedulePushNotification(remoteMessage.notification.title, time, date);
     });
     return () => {
